@@ -15,14 +15,3 @@ def analyze(text):
         "object": extract_object(text),
         "entities": extract_entities(text)
     }
-
-if __name__ == "__main__":
-
-    text = (
-        "Criar cliente João. "
-        "Estou feliz com o sistema."
-    )
-
-    result = analyze(text)
-
-    print(result)

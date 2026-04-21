@@ -29,6 +29,7 @@ body{
     margin: auto;
 }
 .msg_receiver{
+    margin-top:3vh;
      animation: entrada 1s;
 }
 .msg_sender{

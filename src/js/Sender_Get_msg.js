@@ -1,6 +1,7 @@
 
 var Isprimeiro = true
 var Loading = false
+var msgUser = ""
 document.getElementById("send").addEventListener("click", function() {
     if(Loading == true){
         return
@@ -34,6 +35,7 @@ function ConstruirMensagem(){
     }
     Loading = true
     const input = document.getElementById("input").value;
+    msgUser = input 
     document.getElementById("input").enabled = false
     const msg = document.createElement("div");
     msg.classList.add("msg_sender");
@@ -47,11 +49,22 @@ function ConstruirMensagem(){
 }
 
 function ConstruirMensagemResposta(){
-    const input = "Testes de mensagem"
-    const msg = document.createElement("div");
-    msg.classList.add("msg_receiver");
-    msg.textContent = input;
-    document.getElementById("msg_input").appendChild(msg);
-    document.getElementById("input").value = "";
-    Loading = false 
+    ReadAPI(msgUser).then(inputData =>{
+        const input = inputData
+        const msg = document.createElement("div");
+        msg.classList.add("msg_receiver");
+        msg.textContent = input;
+        document.getElementById("msg_input").appendChild(msg);
+        document.getElementById("input").value = "";
+        Loading = false 
+    })
+}
+
+
+
+async function ReadAPI(msg){
+const response = await fetch('http://127.0.0.1:5000/sendmensage/API/' + msg);
+    const data = await response.json();
+    console.log(data);
+    return data["Response"]
 }
