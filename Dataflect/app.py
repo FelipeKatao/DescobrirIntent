@@ -1,6 +1,6 @@
 from flask  import Flask, render_template, request
 from routes.ResponseData import Responses
-from flask_cors import CORS
+from flask_cors import CORS # type: ignore
 app = Flask(__name__)
 CORS(app)
 

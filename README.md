@@ -3,6 +3,7 @@ Intention discovery project in a prompt, using an API for parameter passing, usi
 
 ## Configuração do projeto
 To use it you need to have Python installed on your machine or on your server.
+Run the pip install -r requirements.txt for the frist use
 
 # Documentação do projeto 
 Para utilizar use as seguintes rotas para executa a aplicação em seu projeto.

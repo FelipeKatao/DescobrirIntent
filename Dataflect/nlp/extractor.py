@@ -1,53 +1,25 @@
-from .processor import process
+from .torch_pipeline import TorchNLP
 
-def split_sentences(text):
-
-    doc = process(text)
-
-    sentences = []
-
-    for sent in doc.sents:
-        sentences.append(sent.text)
-
-    return sentences
+_nlp = TorchNLP()
 
 
-def extract_object(text):
-
-    doc = process(text)
-
-    for token in doc:
-
-        if token.dep_ == "obj":
-
-            return token.text
-
-    return None
+def split_sentences(text: str):
+    return _nlp.decompositor_de_frases(text)
 
 
-def extract_entities(text):
+def extract_entities(text: str):
+    return _nlp.entidades_da_frase(text)
 
-    doc = process(text)
 
-    entities = []
+def extract_object(text: str):
+    kws = _nlp.palavras_chaves_da_sentenca(text, top_k=6)
+    if not kws:
+        return None
+    return kws[-1]
 
-    for ent in doc.ents:
 
-        entities.append({
-            "text": ent.text,
-            "label": ent.label_
-        })
-
-    return entities
-
-def extract_subject(text):
-
-    doc = process(text)
-
-    for token in doc:
-
-        if token.dep_ == "nsubj":
-
-            return token.text
-
-    return None
+def extract_subject(text: str):
+    kws = _nlp.palavras_chaves_da_sentenca(text, top_k=6)
+    if not kws:
+        return None
+    return kws[0]

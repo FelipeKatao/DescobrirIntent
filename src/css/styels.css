@@ -69,7 +69,9 @@ body{
 
 footer{
     text-align: center;
-    margin-top: 2vh
+    margin-top: 2vh;
+    color: #aeaeae
+    
 }
 
 #welcome{

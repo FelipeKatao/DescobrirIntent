@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "DescobrirIntent"
+    "liveServer.settings.multiRootWorkspaceName": "DescobrirIntent",
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }
