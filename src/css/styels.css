@@ -66,3 +66,25 @@ footer{
     text-align: center;
     margin-top: 2vh
 }
+
+#welcome{
+    text-align: center;
+    margin-top: 40%
+}
+
+#welcome h3{
+    color: #aeaeae
+}
+
+.bye{
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+}
+
+@keyframes fadein {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
