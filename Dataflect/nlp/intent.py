@@ -27,6 +27,8 @@ CRUD_INTENTS: Dict[str, str] = {
     "deletar": "DELETE",
     "apagar": "DELETE",
     "excluir": "DELETE",
+    "liste": "READ",
+    "lista": "READ",
 }
 
 

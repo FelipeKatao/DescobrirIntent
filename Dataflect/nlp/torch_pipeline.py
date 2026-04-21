@@ -84,21 +84,64 @@ _RE_PHONE = re.compile(r"\(?\d{2}\)?\s?\d{4,5}-?\d{4}")
 def _is_word(tok: str) -> bool:
     return any(ch.isalpha() for ch in tok)
 
+def _token_features(tokens):
 
-def _token_features(tokens: List[str]) -> torch.Tensor:
-    feats: List[List[float]] = []
-    for i, t in enumerate(tokens):
-        t_stripped = t.strip()
-        lower = t_stripped.lower()
-        length_norm = min(len(t_stripped), 20) / 20.0
-        is_alpha = 1.0 if t_stripped.isalpha() else 0.0
-        is_title = 1.0 if (t_stripped[:1].isupper() and t_stripped[1:].islower()) else 0.0
-        is_upper = 1.0 if t_stripped.isupper() and _is_word(t_stripped) else 0.0
-        is_stop = 1.0 if strip_accents(lower) in _STOPWORDS_PT else 0.0
-        pos_norm = 0.0 if len(tokens) <= 1 else float(i) / float(len(tokens) - 1)
-        feats.append([length_norm, is_alpha, is_title, is_upper, is_stop, pos_norm])
-    return torch.tensor(feats, dtype=torch.float32)
+    feats = []
 
+    for t in tokens:
+
+        length = len(t)
+
+        is_capitalized = int(
+            t[:1].isupper()
+        )
+
+        has_digit = int(
+            any(c.isdigit() for c in t)
+        )
+
+        norm = strip_accents(
+            t.lower()
+        )
+
+        is_stopword = int(
+            norm in _STOPWORDS_PT
+        )
+
+        vowel_ratio = sum(
+            c in "aeiou"
+            for c in norm
+        ) / max(1, length)
+
+        # NOVA FEATURE
+        is_action_hint = int(
+            norm in _VERB_HINTS
+            or any(
+                norm.startswith(p)
+                for p in _ACTION_PREFIXES
+            )
+        )
+
+        feats.append([
+
+            length,
+
+            is_capitalized,
+
+            has_digit,
+
+            is_stopword,
+
+            vowel_ratio,
+
+            is_action_hint   # agora são 6
+
+        ])
+
+    return torch.tensor(
+        feats,
+        dtype=torch.float32
+    )
 
 def _syntax_features(text: str, tokens: List[str]) -> torch.Tensor:
     if not text:
@@ -131,21 +174,104 @@ class TorchNLP:
             pred = int(torch.argmax(logits).item())
         return "sistema de sintaxe correta" if pred == 1 else "sistema de sintaxe incorreta"
 
-    def descobrir_palavras_relevantes(self, text: str) -> List[str]:
+
+
+    def descobrir_palavras_relevantes(
+        self,
+        text: str,
+        threshold: float = 0.4,
+        top_k: int = 5
+    ) -> List[str]:
+
+        MIN_KEYWORDS = 3
         tokens, scores = self.classificador_palavras_relevantes(text)
-        pairs = [(t, s) for t, s in zip(tokens, scores) if _is_word(t)]
-        pairs.sort(key=lambda x: x[1], reverse=True)
-        out: List[str] = []
+
+        if not tokens:
+            return self.fallback_keywords(text)
+
+        pairs = [
+            (t, s)
+            for t, s in zip(tokens, scores)
+            if _is_word(t)
+        ]
+
+        if not pairs:
+            return self.fallback_keywords(text)
+
+        # ordena por score
+        pairs.sort(
+            key=lambda x: x[1],
+            reverse=True
+        )
+
+        out = []
+
         seen = set()
+
         for t, s in pairs:
+
             key = strip_accents(t.lower())
-            if key in seen or key in _STOPWORDS_PT:
+
+            if key in seen:
                 continue
-            if s < 0.5:
+
+            if key in _STOPWORDS_PT:
                 continue
+
+            if s < threshold:
+                continue
+
             out.append(t)
+
             seen.add(key)
+
+            if len(out) >= top_k:
+                break
+
+        # proteção contra vazio
+        if len(out) < MIN_KEYWORDS:
+
+            fallback = self.fallback_keywords(text)
+
+            for word in fallback:
+
+                key = strip_accents(word.lower())
+
+                if key not in seen:
+
+                    out.append(word)
+
+                    if len(out) >= MIN_KEYWORDS:
+                        break
+
         return out
+    def fallback_keywords(
+        self,
+        text: str
+    ) -> List[str]:
+
+        text = normalize_text(text)
+
+        tokens = tokenize(text)
+
+        keywords = []
+
+        for t in tokens:
+
+            key = strip_accents(t.lower())
+
+            if key in _STOPWORDS_PT:
+                continue
+
+            if not _is_word(t):
+                continue
+
+            if len(t) <= 2:
+                continue
+
+            keywords.append(t)
+
+        return keywords[:5]
 
     def palavras_chaves_da_sentenca(self, text: str, top_k: int = 6) -> List[str]:
         rel = self.descobrir_palavras_relevantes(text)
