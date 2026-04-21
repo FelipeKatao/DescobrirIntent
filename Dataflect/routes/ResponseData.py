@@ -8,7 +8,7 @@ msg_controller = MensagesController()
 
 @Responses.route('/sendmensage/API/<text>', methods=['GET'])
 def Send(text):
-    Response =  json.loads( msg_controller.analyze(text))
+    Response =  json.loads( msg_controller.a(text))
     if Response.get("Error") != None:
           return {"Response": Response["Error"]}
     if Response.get("Rule") != None:

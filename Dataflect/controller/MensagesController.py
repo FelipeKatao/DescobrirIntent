@@ -16,9 +16,10 @@ class MensagesController:
         data = process_AI_data.analyze(NormalizeText(text).normalize())
         DetectRules = Rule_data.ResponseRule(data["MajorKeywords"],data["intent"])
         
-        if DetectRules == None:
+        if data["MajorKeywords"] == None:
             self.analyze(text)
             self.tryAnalyze += 1
+            print(self.tryAnalyze)
             if self.tryAnalyze <= self.MaxTry:
                 return json.dumps({"Error":"I do know this, but you need to try again."})
         
