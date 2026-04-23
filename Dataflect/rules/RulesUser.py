@@ -1,6 +1,7 @@
 import re
 from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional, Set, Tuple
+from nlp.intent import CRUD_INTENTS,_PREFIX_INTENTS
 
 STOPWORDS = {
     "um", "uma", "o", "a", "de", "do", "da", "quero", "preciso", "gostaria",
@@ -79,7 +80,10 @@ class RulesSintaxe:
             return 
         self.rules[palavras] = {"intent": intent, "action": action}
 
-
+    def AddIntents(self, intents: Dict[str, Any],prefix:Dict[tuple,str]=None) -> None:
+            CRUD_INTENTS.update(intents)
+            if prefix is not None:
+                _PREFIX_INTENTS.append(prefix)
     def ResponseRule(
         self,
         message_text: str,
