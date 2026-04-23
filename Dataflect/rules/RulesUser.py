@@ -72,20 +72,29 @@ class RulesSintaxe:
             }
         return None
 
-    def NewRule(self, rule: Tuple[str, ...], intent: str, action: Any) -> None:
+    def NewRule(self, rule: Tuple[str, ...], intent: str, action: Any,Sentiment:Any=None) -> None:
         palavras = tuple(p.strip().lower() for p in rule)
+        if Sentiment is not None:
+            self.rules[palavras] = {"intent": intent, "action": action,"Sentiment":Sentiment}
+            return 
         self.rules[palavras] = {"intent": intent, "action": action}
+
 
     def ResponseRule(
         self,
         message_text: str,
         intent: str,
         keywords: Optional[List[str]] = None,
+        Sentiment:Any=None
     ) -> Optional[Dict[str, Any]]:
         msg_tokens = self._message_tokens(message_text, keywords)
         for palavras_regra, dados in self.rules.items():
             rule_set = set(palavras_regra)
             if rule_set.issubset(msg_tokens):
+                if "Sentiment" in dados:
+                    print("caiu aqui!")
+                    if Sentiment != dados["Sentiment"]:
+                        continue
                 self.MemoryData(str(message_text), dados["action"])
                 return {"intent": dados["intent"], "action": dados["action"], "match": "exact"}
         best: Optional[Dict[str, Any]] = None
@@ -95,6 +104,9 @@ class RulesSintaxe:
             cov = self._assimilation_coverage(palavras_regra, msg_tokens)
             if cov < self.assimilation_coverage:
                 continue
+            if "Sentiment" in dados:
+                if Sentiment != dados["Sentiment"]:
+                    continue
             intent_ok = dados["intent"] == intent
             better = cov > best_cov or (cov == best_cov and intent_ok and not best_intent_bonus)
             if better:

@@ -53,7 +53,7 @@ function ConstruirMensagemResposta(){
         const input = inputData
         const msg = document.createElement("div");
         msg.classList.add("msg_receiver");
-        msg.textContent = input;
+        msg.innerHTML = input;
         document.getElementById("msg_input").appendChild(msg);
         document.getElementById("input").value = "";
         Loading = false 
@@ -65,6 +65,5 @@ function ConstruirMensagemResposta(){
 async function ReadAPI(msg){
 const response = await fetch('http://127.0.0.1:5000/sendmensage/API/' + msg);
     const data = await response.json();
-    console.log(data);
     return data["Response"]
 }

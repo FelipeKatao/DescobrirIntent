@@ -7,7 +7,15 @@ list_mercado = ["pera, maca, banana,limao"]
 def Mostrar_list():
     return  f" Esses são os itens que preciso comprar no mercado {list_mercado}"
 
+def FeedBackNegativo():
+    return f"Obrigado pelo feedback negativo, vamos melhorar"
+
+def RemoverItem():
+    list_mercado.remove("pera")
+
 Rule_data.NewRule(("comprar","produtos"),"READ",Mostrar_list)
 Rule_data.NewRule(("compras","produtos"),"READ",Mostrar_list)
+Rule_data.NewRule(("consultar","feedback"),"READ",FeedBackNegativo,"NEGATIVE")
+
 
 

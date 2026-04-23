@@ -12,15 +12,15 @@ def Send(text):
     if Response.get("Error") != None:
           return {"Response": Response["Error"]}
     if Response.get("Rule") != None:
-          return {"Response": f" One of the rules was triggered \n: {Response['Rule']}"}
+          return {"Response": f" One of the rules was triggered: <br/> {Response['Rule']}"}
     intent_raw = Response.get("intent")
     intent_name = intent_raw[0] if isinstance(intent_raw, (list, tuple)) else intent_raw
     if intent_name == "UNKNOWN":
            return {"Response":"I couldn't understand what was sent, please check if there are no spelling, syntax, or context errors. And try again"}
     ctx = Response.get("context", {})
     return {"Response": f"""
-       The user asked {text}. \n
-       And object of sentence is {str(Response["MajorKeywords"])} , with entities {str(Response["Entities"])}.
+       The user asked {text}. <br/>
+       And object of sentence is {str(Response["MajorKeywords"])} , with entities {str(Response["Entities"])}.<br/>
        With aditional sentiment {str(Response["Sentiment"])}
        and aditional intent {intent_name}
        and context {str(ctx)}"""}

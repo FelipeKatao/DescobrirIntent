@@ -19,9 +19,10 @@ class MensagesController:
         intent_field = data["intent"]
         intent_name = intent_field[0] if isinstance(intent_field, (list, tuple)) else str(intent_field)
         keywords = data.get("MajorKeywords") or []
+        sentiment = data.get("Sentiment")
         if keywords:
             self.tryAnalyze = 0
-        detected = Rule_data.ResponseRule(normalized, intent_name, keywords if keywords else None)
+        detected = Rule_data.ResponseRule(normalized, intent_name, keywords if keywords else None,sentiment)
         if not keywords:
             self.tryAnalyze += 1
             if self.tryAnalyze <= self.MaxTry:
