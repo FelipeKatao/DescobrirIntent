@@ -10,8 +10,6 @@ class ProcessModel:
             Divide = len(TokenText) / position
             Minus = Divide - 1
             position += 1
-            if Model.get(i):
-                Minus+=0.5
             BiasToken.append(Minus)
         return BiasToken
     
@@ -27,11 +25,14 @@ class ProcessModel:
         return q
     
     def ReturnRelevanceWords(self,text,model):
+      listBias = []
+      for x in text:
+          listBias.append(text[0][0])
       pos = []
       List_ = []
       x =0
-      for i in self.Qualification(self.ProcessModel(model,text)):
+      for i in self.Qualification(self.ProcessModel(model,listBias)):
           if i != "_":
-              pos.append(x) 
+              pos.append(text[x][0][1]) 
           x+=1
       return pos

@@ -20,12 +20,12 @@ class Modelpnlp:
             self.ObjModel = {}
         if self.Model:
             startToken = token[0]
-            EndToken = token[:0]
+            EndToken = token[-1]
             Count = len(token)
             id = 1 
             while(self.ObjModel.get(startToken+str(Count)+str(id)+EndToken)):
                 id += 1
-            self.ObjModel[startToken+str(Count)+str(id)+EndToken] = weight
+            self.ObjModel[startToken+str(Count)+str(id)+EndToken] = [weight,token]
             return startToken+str(Count)+str(id)+EndToken
     def SaveModel(self):
         if self.Model:
@@ -50,3 +50,25 @@ class Modelpnlp:
             if len(i) >=3:
                 self.CreateToken(str(i).lower(),weight)
         return self.ObjModel
+
+
+    def GetToken(self,word):
+        self.Object = self.GetModel()
+        id =0
+        candidatos = []
+        for key, values in self.Object.items():
+            if key.startswith(word[0]): 
+                candidatos.append([values, key]) 
+        for i in candidatos:
+            if i[0][1] == word:  
+                return i
+        return [[0.0,word],'_']  
+    
+    def ReturnVectorToken(self,text):
+        List_ = []
+        Bias = []
+        for x in str(text).split(" "):
+            List_.append(self.GetToken(x))
+            if x != None:
+                Bias.append(self.GetToken(x)[1][0])
+        return List_
