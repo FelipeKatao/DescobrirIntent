@@ -1,9 +1,9 @@
 import json
 
 from pipeline import process_AI_data
+from pipeline.process_AI_data import GetContext
 from project import Rule_data
 from util.NormalizeText import NormalizeText
-
 
 class MensagesController:
     def __init__(self) -> None:
@@ -12,6 +12,7 @@ class MensagesController:
 
     def analyze(self, text: str) -> str:
         normalized = NormalizeText(text).normalize()
+        print(GetContext(text))
         memo = Rule_data.GetMemory(normalized)
         if memo is not None:
             return json.dumps({"Rule": memo["action"]()})

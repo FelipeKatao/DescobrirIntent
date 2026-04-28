@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional
 from nlp import NLPFacade
 from nlp.intent import detect_intent_and_strip
 from nlp.sentiment import get_sentiment
-
+from nlp.pnlpframework import  pnlp
 _facade: Optional[NLPFacade] = None
 
 
@@ -46,3 +46,7 @@ def analyze(text: str) -> Dict[str, Any]:
         "sentences": facade.decompositor_de_frases(text),
         "context": _context_fill(text, facade, entities, keywords),
     }
+
+def GetContext(text):
+    np = pnlp()
+    return np.ReturnContext(text)
