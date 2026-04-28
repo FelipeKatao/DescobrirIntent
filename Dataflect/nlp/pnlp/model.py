@@ -5,6 +5,7 @@ class Modelpnlp:
         self.Model = None
         self.ObjModel = None
         self.ListText = []
+        self.StopWords = ["para"]
     def SetModel(self,model):
         self.Model = model
     def GetModel(self):
@@ -68,7 +69,20 @@ class Modelpnlp:
         List_ = []
         Bias = []
         for x in str(text).split(" "):
-            List_.append(self.GetToken(x))
-            if x != None:
-                Bias.append(self.GetToken(x)[1][0])
+            if len(x) >3:
+                List_.append(self.GetToken(x))
+                if x != None:
+                    Bias.append(self.GetToken(x)[1][0])
         return List_
+    
+    def ContextDataObject(self,text):
+        List = [ ]
+        index_pos = 0
+        for i in text.split(" ")[1:]:
+            value = index_pos
+            if self.GetToken(i)[1] != "_":
+                value+=0.1
+            if len(i) >3 and i not in self.StopWords:
+                List.append((i,value))
+            index_pos +=0.1
+        return List
