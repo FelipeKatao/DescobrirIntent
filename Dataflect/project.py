@@ -17,6 +17,8 @@ def RemoverItem():
 
 Rule_data.NewRule(("comprar","produtos"),"READ",Mostrar_list)
 Rule_data.NewRule(("compras","produtos"),"READ",Mostrar_list)
+Rule_data.NewRule(("compras","produtos"),"DELETE",Mostrar_list)
+Rule_data.NewRule(("consultar","feedback"),"READ",FeedBackNegativo,"NEGATIVE")
 Rule_data.NewRule(("consultar","feedback"),"READ",FeedBackNegativo,"NEGATIVE")
 
 

@@ -23,7 +23,7 @@ class MensagesController:
         if keywords:
             self.tryAnalyze = 0
         detected = Rule_data.ResponseRule(normalized, intent_name, keywords if keywords else None,sentiment)
-        Build_dataContext = self.BuildResponseData([data,detected,GetContext(text),{"Sent":sentiment},{"Keys":keywords}])
+        Build_dataContext = self.BuildResponseData([data,detected,GetContext(text),{"Sent":sentiment},{"Keys":keywords},{"action":intent_name}])
         if not keywords:
             self.tryAnalyze += 1
             if self.tryAnalyze <= self.MaxTry:
@@ -33,10 +33,12 @@ class MensagesController:
         return json.dumps(Build_dataContext)
 
     def BuildResponseData(self,Data):
-       ResponseField = {"Sentiment":[],"Objeto":[],"Itens":[],"Entidade":[]}
+       ResponseField = {"Sentiment":[],"Objeto":[],"Itens":[],"Entidade":[],"action":[]}
        for i in Data:
             print(i)
             if i:
+                if i.get("action"):
+                    ResponseField["action"].append(i["action"])
                 if  i.get("MajorKeywords"):
                     ResponseField["Itens"].append(i["MajorKeywords"])
                 if i.get("Ação_contexto"):

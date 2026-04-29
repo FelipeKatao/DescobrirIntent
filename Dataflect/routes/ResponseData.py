@@ -23,6 +23,7 @@ def Send(text):
        And object of sentence is {str(Response["Entidade"])} , with entities {str(Response["Objeto"])}.<br/>
        With aditional sentiment {str(Response["Sentiment"])}
        With  Itens {str(Response["Itens"])}
+      and action {str(Response["action"])}      
        """}
 
 
