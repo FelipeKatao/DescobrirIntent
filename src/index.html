@@ -7,6 +7,23 @@
     <title>DeteFlect Framework</title>
 </head>
 <body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>Dataflect</h2>
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="username">User:</label>
+                <input type="text" id="username" name="username" placeholder="Digite seu usuário">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha">
+            </div>
+            <button id="loginBtn" class="login-button">Enter</button>
+        </div>
+    </div>
+
     <div class='page'>
         <nav class="nav"> <ul><li class="bold">Deteflect</li> <li class='content'>Documentation</li> </ul></nav>
         <div id='msg_input' class='msgs'>
@@ -22,5 +39,6 @@
     </div>
     <footer>Created by Felipe Katao 2026, all rights reserved </footer>
     <script src="./js/Sender_Get_msg.js"></script>
+    <script src="./js/modal.js"></script>
 </body>
 </html>

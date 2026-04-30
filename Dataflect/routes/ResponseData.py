@@ -1,5 +1,5 @@
 import json
-
+from project import DataFlectApi
 from flask  import Blueprint
 from controller.MensagesController import MensagesController
 
@@ -27,3 +27,9 @@ def Send(text):
        """}
 
 
+@Responses.route('/secury/check', methods=['POST'])
+def SecuryCheck():
+    
+    if DataFlectApi.get("Secuty_by_pass") == True:
+      return {"Response": "1"}
+    return {"Response": "0"}

@@ -1,6 +1,11 @@
 from rules.RulesUser import RulesSintaxe
 Rule_data = RulesSintaxe()
 
+#API configuration
+DataFlectApi = {
+    "Secuty_by_pass":True   
+}
+
 Rule_data.AddIntents({"cadastrar processo":"JURI_PROCESSO"},("process","JURI_PROCESSO"))
 
 #Your data project here, all rules of your project added here
