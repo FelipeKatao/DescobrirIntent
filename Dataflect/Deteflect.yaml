@@ -6,3 +6,9 @@ Senha: "admin123"
 SecretKey: "DataFlect_Secure_Key_2024"
 versao: "1.0.0"
 Form_format_rule: [CREATE,FormValues]
+
+#Criação de configurações de formularios
+Form_action_base: ["CREATE","msg: Formulario criado com sucesso!"]
+
+#Validacao de formulario
+Form_validate_base: "Validar_campos"

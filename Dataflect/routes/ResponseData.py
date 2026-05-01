@@ -1,6 +1,6 @@
 import json
 from project import DataFlectApi
-from flask  import Blueprint
+from flask  import Blueprint,request
 from controller.MensagesController import MensagesController
 from controller.ConfigController import ConfigController
 Responses = Blueprint('Responses', __name__)
@@ -44,3 +44,15 @@ def SecuryCheck():
     if DataFlectApi.get("Secuty_by_pass") == True:
       return {"Response": "1"}
     return {"Response": "0"}
+
+@Responses.route('/forms/send', methods=['POST'])
+def SendForms():
+     Config =  dict(ConfigController().GetAllConfigsYaml())
+     data = request.args.get('data')
+     dados = request.get_json()
+     for campo, valor in dados.items():
+        print(f"{campo}: {valor}")
+     if Config.get("Form_action_"+data):
+          values =  ConfigController().CreateVectorToSTR(Config.get("Form_action_"+data))
+          return {"Response": values}
+     return {"Response": "1"}

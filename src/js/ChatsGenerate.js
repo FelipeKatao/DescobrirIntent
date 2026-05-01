@@ -264,14 +264,19 @@ var ChatManager = {
                     element = element.replace('[','').replace(']','').replace("'",'').replace("'","").replace(" ","")
                     Fields_campos += `<label for="${element}">${element}</label><input type="text" name="${element}"><br>`
                 });
+
+
+                let ChatText = `SendForm('dddd','base',${chatId})`
                 let ElementResponse = `
+                
                 <div>
                 Here is the form to carry out the manipulation of the mentioned data
                 </div>
                 <br>
-                <form class='formDataPrompt'>
+                <iframe id="hiddenFrame" name="hiddenFrame" style="display: none;"></iframe>
+                <form id='form_data' class='formDataPrompt' target="hiddenFrame">
                   ${Fields_campos}
-                  <button>Send</button>
+                  <button id='send_forms' onclick=${ChatText}  type="submit">Send</button>
                 </form>
                 `
                 msgElement.innerHTML = ElementResponse
@@ -287,7 +292,7 @@ var ChatManager = {
             console.error("Erro ao chamar API:", error);
         }
     },
-
+    
     // Trocar para outro chat
     switchToChat: function(chatId) {
         // Fechar todos os dropdowns antes de trocar
@@ -413,3 +418,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+async function SendForm(msg,idname, chatId) {
+        document.getElementById("send_forms").remove();
+        var form = document.getElementById('form_data');
+        resultForm ={}
+        const dados = new FormData(form);
+         for (const [campo, valor] of dados.entries()) {
+             resultForm[campo] = valor;
+        }
+        const response = await fetch('http://127.0.0.1:5000/forms/send?data='+idname+'',{method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(resultForm)});
+            const data = await response.json();
+            const responseText = data;
+        const msgInput = document.getElementById('msg_input_'+chatId.id);
+        const msgElement = document.createElement("div");
+        msgElement.classList+='msg_receiver'
+        msgElement.className = "msg_receiver";
+        if(responseText["Response"]  != '1'){
+            console.log(responseText["Response"][1])
+            Resp =responseText["Response"][1].split(":")[1].replace("\"","")
+            msgElement.innerHTML = Resp
+            msgInput.appendChild(msgElement);
+        }
+    }
