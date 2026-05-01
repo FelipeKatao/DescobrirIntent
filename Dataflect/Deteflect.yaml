@@ -5,3 +5,4 @@ Usuario: "administrador"
 Senha: "admin123"
 SecretKey: "DataFlect_Secure_Key_2024"
 versao: "1.0.0"
+Form_format_rule: [CREATE,FormValues]

@@ -250,12 +250,35 @@ var ChatManager = {
         try {
             const response = await fetch('http://127.0.0.1:5000/sendmensage/API/' + msg);
             const data = await response.json();
-            const responseText = data["Response"];
+            const responseText = data;
 
             // Criar mensagem de resposta
             const msgElement = document.createElement("div");
             msgElement.className = "msg_receiver";
-            msgElement.innerHTML = responseText;
+
+            console.log(responseText["Config"]["FormResponse"]["Form_format_rule"])
+            if(responseText["Config"]["FormResponse"] == 'true'){
+                let Campos = responseText["Field"].replace('[','').replace(']','').split(',');
+                let Fields_campos =""
+                Campos.forEach(element => {
+                    element = element.replace('[','').replace(']','').replace("'",'').replace("'","").replace(" ","")
+                    Fields_campos += `<label for="${element}">${element}</label><input type="text" name="${element}"><br>`
+                });
+                let ElementResponse = `
+                <div>
+                Here is the form to carry out the manipulation of the mentioned data
+                </div>
+                <br>
+                <form class='formDataPrompt'>
+                  ${Fields_campos}
+                  <button>Send</button>
+                </form>
+                `
+                msgElement.innerHTML = ElementResponse
+            }
+            else{
+                msgElement.innerHTML = responseText["Response"];
+            }
             msgInput.appendChild(msgElement);
 
             // Scroll para baixo

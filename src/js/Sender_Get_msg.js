@@ -15,7 +15,10 @@ function sendMessageToAPI(msg, chatId) {
         
         const msgElement = document.createElement("div");
         msgElement.classList.add("msg_receiver");
-        msgElement.innerHTML = inputData;
+        console.log(inputData["Config"])
+        console.log("DDD")
+        
+        msgElement.innerHTML = inputData["Response"];
         msgInput.appendChild(msgElement);
         
         // Habilitar input novamente
@@ -28,10 +31,9 @@ function sendMessageToAPI(msg, chatId) {
     });
 }
 
-// Função ReadAPI mantida para compatibilidade
 async function ReadAPI(msg){
     const response = await fetch('http://127.0.0.1:5000/sendmensage/API/' + msg);
     const data = await response.json();
-    return data["Response"]
+    return data
 }
 

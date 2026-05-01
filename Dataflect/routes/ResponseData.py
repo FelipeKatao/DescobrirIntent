@@ -2,7 +2,7 @@ import json
 from project import DataFlectApi
 from flask  import Blueprint
 from controller.MensagesController import MensagesController
-
+from controller.ConfigController import ConfigController
 Responses = Blueprint('Responses', __name__)
 msg_controller = MensagesController()
 
@@ -18,13 +18,24 @@ def Send(text):
     if intent_name == "UNKNOWN":
            return {"Response":"I couldn't understand what was sent, please check if there are no spelling, syntax, or context errors. And try again"}
     ctx = Response.get("context", {})
+    Config =  dict(ConfigController().GetAllConfigsYaml())
+    ConfigsData = {"FormResponse":""}
+    
+    if Config.get("Form_format_rule") :
+         Config_form = Config.get("Form_format_rule").replace("[","").replace("]","").replace("'","").split(",")
+         print(Config_form[0])
+         print(Response["action"])
+         if Config_form[0] == Response["action"][0]:
+              ConfigsData["FormResponse"] = "true"
+              
     return {"Response": f"""
        The user asked {text}. <br/>
        And object of sentence is {str(Response["Entidade"])} , with entities {str(Response["Objeto"])}.<br/>
-       With aditional sentiment {str(Response["Sentiment"])}
+       With aditional sentiment {str(Response["Sentiment"])}.
        With  Itens {str(Response["Itens"])}
       and action {str(Response["action"])}      
-       """}
+      
+       ""","Config":ConfigsData,"Field":str(Response["Itens"])}
 
 
 @Responses.route('/secury/check', methods=['POST'])
