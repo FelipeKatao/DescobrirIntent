@@ -420,10 +420,16 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function SendForm(msg,idname, chatId) {
-        document.getElementById("send_forms").remove();
+    document.getElementById("send_forms").remove();
+       var el =  document.getElementById("form_data")
+          el.id = "generic_id";
+        const inputs = el.querySelectorAll("input");
+        inputs.forEach(input => {
+            input.disabled = true;
+        });
         var form = document.getElementById('form_data');
         resultForm ={}
-        const dados = new FormData(form);
+        const dados = new FormData(el);
          for (const [campo, valor] of dados.entries()) {
              resultForm[campo] = valor;
         }
