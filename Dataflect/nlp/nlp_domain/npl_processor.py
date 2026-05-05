@@ -4,13 +4,13 @@ import torch.optim as optim
 import os
 
 from transformers import AutoTokenizer,logging
-from npl_dataset_intent import training_data
-from npl_model import IntentModel
-from npl_parser import DataParser
+from .npl_dataset_intent import training_data
+from .npl_model import IntentModel
+from .npl_parser import DataParser
 
 logging.set_verbosity_error()
-MODEL_PATH = "model.pt"
-TOKENIZER_PATH = "tokenizer/"
+MODEL_PATH = "./nlp/nlp_domain/model.pt"
+TOKENIZER_PATH = "./nlp/nlp_domain/tokenizer"
 
 
 class NLPProcessor:

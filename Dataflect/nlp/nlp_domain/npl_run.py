@@ -1,17 +1,17 @@
 import os
-from npl_processor import NLPProcessor, MODEL_PATH
+from .npl_processor import NLPProcessor, MODEL_PATH
 
 
 class App:
     def __init__(self):
         self.processor = NLPProcessor()
 
-    def run(self):
+    def run(self,type,text):
         print("=== NLP SYSTEM V2 ===")
         print("1 - Treinar")
         print("2 - Usar")
 
-        mode = input("Escolha: ")
+        mode = type
 
         if mode == "1":
             print("Treinando...")
@@ -25,15 +25,5 @@ class App:
                 return
 
             self.processor.load()
+            print(self.processor.predict(text))
 
-            while True:
-                text = input(">> ")
-
-                if text == "sair":
-                    break
-
-                print(self.processor.predict(text))
-
-
-if __name__ == "__main__":
-    App().run()
