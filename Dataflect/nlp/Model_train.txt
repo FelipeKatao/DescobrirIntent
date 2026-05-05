@@ -1,114 +1,23 @@
-# v.CreateModel()
-# Array_treino = [
-
-# "inserir usuario nome joao",
-# "inserir usuario nome maria",
-# "inserir cliente cpf 123456789",
-# "inserir produto nome notebook",
-# "inserir produto preco 3500",
-# "inserir pedido numero 1001",
-# "inserir funcionario nome carlos",
-# "inserir categoria nome eletronicos",
-# "inserir endereco cidade sao_paulo",
-# "inserir conta numero 98765",
-# "inserir item descricao mouse",
-# "inserir fornecedor nome dell",
-# "inserir registro data 2024",
-# "inserir venda valor 1500",
-# "inserir usuario email joao@email",
-# "inserir produto estoque 50",
-# "inserir cliente telefone 119999999",
-# "inserir pedido status aberto",
-# "inserir categoria codigo 10",
-# "inserir arquivo nome relatorio",
-
-
-# "consultar usuario nome joao",
-# "consultar cliente cpf 123456789",
-# "consultar produto nome notebook",
-# "consultar pedido numero 1001",
-# "consultar funcionario nome carlos",
-# "consultar categoria nome eletronicos",
-# "consultar endereco cidade sao_paulo",
-# "consultar conta numero 98765",
-# "consultar item descricao mouse",
-# "consultar fornecedor nome dell",
-# "consultar registro data 2024",
-# "consultar venda valor 1500",
-# "consultar usuario email joao@email",
-# "consultar produto estoque 50",
-# "consultar cliente telefone 119999999",
-# "consultar pedido status aberto",
-# "consultar categoria codigo 10",
-# "consultar arquivo nome relatorio",
-# "consultar tabela usuarios",
-# "consultar banco dados clientes",
-
-# "atualizar usuario nome joao",
-# "atualizar cliente cpf 123456789",
-# "atualizar produto preco 4000",
-# "atualizar pedido status fechado",
-# "atualizar funcionario salario 5000",
-# "atualizar categoria nome moveis",
-# "atualizar endereco cidade campinas",
-# "atualizar conta saldo 2000",
-# "atualizar item descricao teclado",
-# "atualizar fornecedor nome hp",
-# "atualizar registro data 2025",
-# "atualizar venda valor 1800",
-# "atualizar usuario email maria@email",
-# "atualizar produto estoque 100",
-# "atualizar cliente telefone 118888888",
-# "atualizar pedido numero 1002",
-# "atualizar categoria codigo 20",
-# "atualizar arquivo nome backup",
-# "atualizar tabela usuarios",
-# "atualizar banco dados vendas",
-
-
-# "deletar usuario nome joao",
-# "deletar cliente cpf 123456789",
-# "deletar produto nome notebook",
-# "deletar pedido numero 1001",
-# "deletar funcionario nome carlos",
-# "deletar categoria nome eletronicos",
-# "deletar endereco cidade sao_paulo",
-# "deletar conta numero 98765",
-# "deletar item descricao mouse",
-# "deletar fornecedor nome dell",
-# "deletar registro data 2024",
-# "deletar venda valor 1500",
-# "deletar usuario email joao@email",
-# "deletar produto estoque 50",
-# "deletar cliente telefone 119999999",
-# "deletar pedido status aberto",
-# "deletar categoria codigo 10",
-# "deletar arquivo nome relatorio",
-# "deletar tabela usuarios",
-# "deletar banco dados clientes",
-
-# "informar como inserir usuario",
-# "explicar como inserir cliente",
-# "mostrar como inserir produto",
-# "ensinar como inserir pedido",
-# "demonstrar como inserir funcionario",
-# "orientar como inserir categoria",
-# "indicar como inserir endereco",
-# "detalhar como inserir conta",
-# "explicar como inserir registro",
-# "mostrar como inserir dados"
-
-# ]
-# for i in Array_treino:
-#     v.ExtractTokens(i)
-#     v.SaveModel()
-# # criar um modelo de dados melhor 
-# # pedir para o chta gpt gerar os dados para inserir no modelo
-# # testar novamente a predição de intenção com esses dados
-# v.CreateModel()
-# v.ExtractTokens(teste)
-# v.SaveModel()
-# terms =[]
-# for x in z.ReturnRelevanceWords(v.ExtractTokens(teste),v.GetModel()):
-#     terms.append(v.GetWord(x))
-# print(terms)
+ PS C:\Users\ncata\OneDrive\Documentos\Projetos\DescobrirIntent\Dataflect> git ls-tree -r --name-only HEAD                  
+nlp/nlp_domain/model.pt
+nlp/nlp_domain/npl_dataset_intent.py
+nlp/nlp_domain/npl_model.py
+nlp/nlp_domain/npl_parser.py
+nlp/nlp_domain/npl_processor.py
+nlp/nlp_domain/tokenizer/tokenizer.json
+nlp/nlp_domain/tokenizer/tokenizer_config.json
+nlp/pnlp/ProcessModel.py
+nlp/pnlp/model.py
+nlp/pnlpframework.py
+nlp/sentiment.py
+nlp/torch_pipeline.py
+nlp/torch_tokenizer.py
+pipeline/process_AI_data.py
+project.py
+pytest.py
+requirements.txt
+routes/GetConfig.py
+routes/ResponseData.py
+rules/RulesUser.py
+util/NormalizeText.py
+util/__init__.py
