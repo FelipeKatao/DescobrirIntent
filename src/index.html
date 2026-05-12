@@ -1,44 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styels.css">
-    <title>DeteFlect Framework</title>
+
+    <title>DeteFlect AI</title>
+
+    <link rel="stylesheet" hreF="css/styels.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <h2>Dataflect</h2>
-            <h2>Login</h2>
-            <div class="form-group">
-                <label for="username">User:</label>
-                <input type="text" id="username" name="username" placeholder="Digite seu usuário">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Digite sua senha">
-            </div>
-            <button id="loginBtn" class="login-button">Enter</button>
-        </div>
+
+    <!-- BACKGROUND -->
+
+    <div class="background">
+
+        <div class="sphere sphere1"></div>
+        <div class="sphere sphere2"></div>
+
     </div>
 
-    <div class='page'>
-        <nav class="nav"> <ul><li class="bold">Deteflect</li> <li class='content'>Documentation</li> </ul></nav>
-        <div id='msg_input' class='msgs'>
-            <div id="welcome">
-                <h1>Welcome to Deteflect Framework</h1>
-                <h3>How can I help you?</h3>
+    <!-- LOGIN -->
+
+    <div id="loginModal" class="modal">
+
+        <div class="modal-card">
+
+            <div class="logo-area">
+                <h1>Dete<span>Flect</span></h1>
+                <p>Framework inteligente para NLP e IA</p>
             </div>
+
+            <div class="input-group">
+                <label>Usuário</label>
+                <input type="text" id="username" placeholder="Digite seu usuário">
+            </div>
+
+            <div class="input-group">
+                <label>Senha</label>
+                <input type="password" id="password" placeholder="Digite sua senha">
+            </div>
+
+            <button id="loginBtn" class="login-btn">
+                Entrar
+            </button>
+
         </div>
-        <div class='input_sender'>
-            <input type="text" name="input" id="input">
-            <button type="submit" id="send">Send</button>
-        </div>
+
     </div>
-    <footer>Created by Felipe Katao 2026, all rights reserved </footer>
-    <script src="./js/Sender_Get_msg.js"></script>
-    <script src="./js/modal.js"></script>
+
+    <!-- APP -->
+
+    <main class="app">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-top">
+
+                <div class="logo">
+                    Dete<span>Flect</span>
+                </div>
+
+                <button class="new-chat">
+                    + Nova conversa
+                </button>
+
+            </div>
+
+            <div class="chat-history">
+
+                <div class="history-item active">
+                    NLP Assistant
+                </div>
+
+                <div class="history-item">
+                    Automação IA
+                </div>
+
+                <div class="history-item">
+                    Sistema Inteligente
+                </div>
+
+            </div>
+
+            <div class="sidebar-footer">
+                <span>Felipe Katao © 2026</span>
+            </div>
+
+        </aside>
+
+        <!-- CHAT -->
+
+        <section class="chat-container">
+
+            <!-- HEADER -->
+
+            <header class="chat-header">
+
+                <div>
+                    <h2>DeteFlect AI</h2>
+                    <p>Assistente inteligente com NLP</p>
+                </div>
+
+                <div class="status">
+                    ● Online
+                </div>
+
+            </header>
+
+            <!-- CHAT -->
+
+            <div id="messages" class="messages">
+
+                <div class="welcome">
+
+                    <h1>
+                        Como posso ajudar você hoje?
+                    </h1>
+
+                    <p>
+                        Faça perguntas, envie comandos ou interaja
+                        com o sistema inteligente.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- INPUT -->
+
+            <div class="input-area">
+
+                <div class="input-wrapper">
+
+                    <input
+                        type="text"
+                        id="input"
+                        placeholder="Digite sua mensagem..."
+                    >
+
+                    <button id="send">
+                        Enviar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="./js/app.js"></script>
+
 </body>
 </html>
